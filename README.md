@@ -1,25 +1,20 @@
-# Travel-app backend
+## Description
 
-Demo API for "travel-app" task.
+Express-based backend
 
-## Деплой
- - [Деплой на хероку](https://travel-app-demo.herokuapp.com)  
- - Доступные эндпойнты:
-    - ```/countries``` - список стран
-    - ```/countries/{id}``` - детали о стране
-    - ```/docs``` - swagger документация
- 
+## Installation
 
-## Локальный запуск
+```bash
+$ npm install
+```
 
-1. ```git clone https://github.com/rolling-scopes-school/travel-app-be.git```
-2. Создайте файл .env в корне приложения
-3. В созданном файе укажите переменные окружения:  
-```MONGO_CONNECTION_STRING=<адрес вашей локальной или облачной mongodb>```
-4. npm install
-5. npm run start:dev
+## Running the app
 
+```bash
+# development
+$ npm run start
 
-## Документация
+# watch mode
+$ npm run start:dev
 
-1. [Вики проекта](https://github.com/rolling-scopes-school/travel-app-be/wiki)
+```

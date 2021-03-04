@@ -1,48 +1,46 @@
 {
-  "name": "travel-app-be",
-  "version": "1.0.0",
-  "description": "backend fot 'travel app' task",
-  "main": "bin/www.js",
+  "name": "rsclone-server",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "engines": {
+    "node": "12.18.2"
+  },
+  "private": true,
+  "license": "UNLICENSED",
   "scripts": {
-    "start:dev": "nodemon ./src/bin/www",
-    "start": "node ./src/bin/www"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rolling-scopes-school/travel-app-be.git"
-  },
-  "keywords": [
-    "RSS",
-    "travel",
-    "react"
-  ],
-  "author": "evgeniimal",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^7.19.0",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "2.2.1",
-    "nodemon": "^2.0.7"
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node ./dist/server.js",
+    "start:dev": "tsc-watch --onSuccess \"node --inspect ./dist/server.js\"",
+    "lint": "eslint ./src --fix"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "helmet": "^4.4.1",
-    "http-status-codes": "^2.1.4",
-    "mongoose": "^5.11.15",
-    "morgan": "^1.10.0",
-    "swagger-ui-express": "^4.1.6",
-    "winston": "^3.3.3",
-    "yamljs": "^0.3.0"
+    "@types/jsonwebtoken": "8.5.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "1.19.0",
+    "cors": "2.8.5",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "express-validator": "^6.9.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "3.6.3",
+    "morgan": "1.10.0",
+    "rimraf": "^3.0.2",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.9",
+    "@types/express": "4.17.11",
+    "@types/mongodb": "^3.6.3",
+    "@types/morgan": "1.9.2",
+    "@types/node": "^14.14.6",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "tsc-watch": "4.2.9",
+    "typescript": "^4.0.5"
   },
-  "engines": {
-    "node": ">=12"
-  },
-  "bugs": {
-    "url": "https://github.com/rolling-scopes-school/travel-app-be/issues"
-  },
-  "homepage": "https://github.com/rolling-scopes-school/travel-app-be#readme"
+  "devDependencies": {
+    "eslint-config-prettier": "7.1.0",
+    "eslint-plugin-prettier": "^3.1.4"
+  }
 }
