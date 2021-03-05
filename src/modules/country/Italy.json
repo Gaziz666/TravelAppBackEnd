@@ -1,0 +1,43 @@
+{
+  "_id": "1",
+  "imgUrl": "",
+  "videoUrl": "https://www.dropbox.com/s/j2rrg2xijsvfef6/video.png?dl=0",
+  "flagUrl": "string",
+  "coordinate": {
+    "x": "0",
+    "y": "0"
+  },
+  "name": "Italy",
+  "about": "about",
+  "area": "15 km",
+  "population": "20 mln",
+  "populationDensity": "18",
+  "capital": "Milan",
+  "government": "gov",
+  "headOfState": "head",
+  "headOfGovernment": "",
+  "translations": {
+    "ru": {
+      "name": "Italy",
+      "about": "about",
+      "area": "15 km",
+      "population": "20 mln",
+      "populationDensity": "18",
+      "capital": "Milan",
+      "government": "gov",
+      "headOfState": "head",
+      "headOfGovernment": ""
+    },
+    "uk": {
+      "name": "Italy",
+      "about": "about",
+      "area": "15 km",
+      "population": "20 mln",
+      "populationDensity": "18",
+      "capital": "Milan",
+      "government": "gov",
+      "headOfState": "head",
+      "headOfGovernment": ""
+    }
+  }
+}
