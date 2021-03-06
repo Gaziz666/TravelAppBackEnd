@@ -7,16 +7,19 @@ export type Country = {
     x: number;
     y: number;
   };
-  name: string;
-  about: string;
-  area: string;
-  population: string;
-  populationDensity: string;
-  capital: string;
-  government: string;
-  headOfState: string;
-  headOfGovernment: string;
+  placesCount: number;
   translations: {
+    en: {
+      name: string;
+      about: string;
+      area: string;
+      population: string;
+      populationDensity: string;
+      capital: string;
+      government: string;
+      headOfState: string;
+      headOfGovernment: string;
+    };
     ru: {
       name: string;
       about: string;

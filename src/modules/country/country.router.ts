@@ -10,7 +10,7 @@ export const getCountryRouter = (mongoClient: RSMongoClient) => {
     try {
       const data = await countryService.findAll();
 
-      res.json({ data });
+      res.json(data);
     } catch (err) {
       next(err);
     }
