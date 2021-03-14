@@ -46,7 +46,7 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
   router.post('/login', async (req, res) => {
     const validateErr = validationResult(req);
     if (!validateErr.isEmpty()) {
-      return res.status(400).json({ errors: validateErr.array()[0] });
+      return res.status(400).json({ error: validateErr.array()[0] });
     }
 
     try {
@@ -82,7 +82,7 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
         error = errMessage.loginWrong;
       }
       return res.status(400).json({
-        errors: error,
+        error: error,
       });
     }
   });
@@ -96,10 +96,10 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      const errors = validationResult(req);
+      const error = validationResult(req);
 
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array()[0] });
+      if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array()[0] });
       }
 
       try {
@@ -111,7 +111,7 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
         }
       } catch (err) {
         return res.status(400).json({
-          errors: errMessage.loginRepeat,
+          error: errMessage.loginRepeat,
         });
       }
 
@@ -124,7 +124,7 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
         }
       } catch (err) {
         return res.status(400).json({
-          errors: errMessage.emailRepeat,
+          error: errMessage.emailRepeat,
         });
       }
 
@@ -152,25 +152,6 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
         res.send('error');
         next(err);
       }
-    }
-  );
-
-  router.get(
-    '/register',
-    // body('password').isLength({ min: 6 }),
-    // .withMessage({
-    //   en: 'password must be at least 6 chars long',
-    //   ru: 'пароль не менее 6 символов',
-    //   uk: 'пароль не менше 6 символів',
-    // }),
-    // body('email').isEmail(),
-    // .withMessage({
-    //   en: 'incorrect form of email',
-    //   ru: 'эл адрес не корректен',
-    //   uk: 'ел адреса не коректний',
-    // }),
-    async (req, res, next) => {
-      console.log('err', req.body);
     }
   );
 
