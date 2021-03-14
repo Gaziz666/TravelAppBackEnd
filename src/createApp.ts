@@ -5,6 +5,7 @@ import cors from 'cors';
 import { RSMongoClient } from './db-client/mongo-client';
 import path from 'path';
 import { getCountryRouter } from './modules/country/country.router';
+import { getUsersRouter } from './modules/users/users.router';
 
 export const createApp = (mongoClient: RSMongoClient) => {
   const app = express();
@@ -16,6 +17,7 @@ export const createApp = (mongoClient: RSMongoClient) => {
   app.use(bodyParser.json());
 
   app.use('/country', getCountryRouter(mongoClient));
+  app.use('/user', getUsersRouter(mongoClient));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../../dist/index.html'));
