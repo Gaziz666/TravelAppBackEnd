@@ -34,17 +34,13 @@ export const getUsersService = (mongoClient: RSMongoClient) => {
 
     async findByName(name: string): Promise<{ data: User | null }> {
       const collection = await getCollection();
-
       const data = await collection.findOne<User>({ name: name });
-
       return { data };
     },
 
     async findByEmail(email: string): Promise<{ data: User | null }> {
       const collection = await getCollection();
-
       const data = await collection.findOne<User>({ email: email });
-
       return { data };
     },
   };

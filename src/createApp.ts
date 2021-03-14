@@ -14,7 +14,11 @@ export const createApp = (mongoClient: RSMongoClient) => {
 
   app.use(morgan('dev'));
   app.use(cors());
-  app.use(bodyParser.json());
+
+  app.use(express.json());
+  app.use(express.text());
+  app.use(express.raw());
+  app.use(express.urlencoded({ extended: true }));
 
   app.use('/country', getCountryRouter(mongoClient));
   app.use('/user', getUsersRouter(mongoClient));
