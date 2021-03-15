@@ -50,29 +50,33 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
     }
 
     try {
-      const isNameExist: {
+      const isLoginExist: {
         data: User | null;
-      } = await usersService.findByName(req.body.name);
-      if (!isNameExist.data) {
+      } = await usersService.findByLogin(req.body.login);
+      if (!isLoginExist.data) {
         throw new Error('login');
       }
 
       const validPassword = await bcrypt.compare(
         req.body.password,
-        isNameExist.data?.password
+        isLoginExist.data?.password
       );
       if (!validPassword) {
         throw new Error('password');
       }
 
-      const payLoad = { name: isNameExist.data.name };
+      const payLoad = { login: isLoginExist.data.login };
 
       const token = jwt.sign(payLoad, process.env.TOKEN_SECRET!);
-
+      console.log('payload', payLoad);
       res.header('auth-token', token).json({
         error: null,
         token: { token },
-        data: isNameExist.data,
+        data: {
+          userLogin: isLoginExist.data.login,
+          userEmail: isLoginExist.data.email,
+          userName: isLoginExist.data.name,
+        },
       });
     } catch (err) {
       let error = {};
@@ -103,10 +107,10 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
       }
 
       try {
-        const isNameExist: {
+        const isLoginExist: {
           data: User | null;
-        } = await usersService.findByName(req.body.name);
-        if (isNameExist.data) {
+        } = await usersService.findByLogin(req.body.login);
+        if (isLoginExist.data) {
           throw new Error();
         }
       } catch (err) {
@@ -116,10 +120,10 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
       }
 
       try {
-        const isNameExist: {
+        const isLoginExist: {
           data: User | null;
         } = await usersService.findByEmail(req.body.email);
-        if (isNameExist.data) {
+        if (isLoginExist.data) {
           throw new Error();
         }
       } catch (err) {
@@ -133,12 +137,12 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
         const password = await bcrypt.hash(req.body.password, salt);
 
         const data = await usersService.create({
-          name: req.body.name,
+          login: req.body.login,
           email: req.body.email,
           password,
         });
 
-        const payLoad = { name: data.data.name };
+        const payLoad = { login: data.data.login };
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const token = jwt.sign(payLoad, process.env.TOKEN_SECRET!);
@@ -146,7 +150,11 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
         res.header('auth-token', token).json({
           error: null,
           token: { token },
-          data: data.data,
+          data: {
+            userLogin: data.data.login,
+            userEmail: data.data.email,
+            userName: data.data.name,
+          },
         });
       } catch (err) {
         res.send('error');

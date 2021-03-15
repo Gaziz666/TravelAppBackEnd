@@ -9,11 +9,11 @@ export const getUsersService = (mongoClient: RSMongoClient) => {
 
   return {
     async create({
-      name,
+      login,
       email,
       password,
     }: {
-      name: string;
+      login: string;
       email: string;
       password: string;
     }): Promise<{ data: User }> {
@@ -24,17 +24,18 @@ export const getUsersService = (mongoClient: RSMongoClient) => {
       const { ops } = await collection.insertOne({
         createdAt,
         updatedAt: createdAt,
-        name,
+        login,
         email,
         password,
+        name: '',
       });
 
       return { data: ops[0] };
     },
 
-    async findByName(name: string): Promise<{ data: User | null }> {
+    async findByLogin(login: string): Promise<{ data: User | null }> {
       const collection = await getCollection();
-      const data = await collection.findOne<User>({ name: name });
+      const data = await collection.findOne<User>({ login: login });
       return { data };
     },
 
