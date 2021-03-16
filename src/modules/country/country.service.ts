@@ -38,5 +38,50 @@ export const getCountryService = (mongoClient: RSMongoClient) => {
 
       return { data: ops[0] };
     },
+
+    //
+    async updateRating({
+      countryId,
+      placeIndex,
+      newRating,
+      userLogin,
+    }: {
+      countryId: string;
+      placeIndex: number;
+      newRating: number;
+      userLogin: string;
+    }): Promise<{ data: Country }> {
+      const collection = await getCollection();
+      console.log(countryId, placeIndex, newRating, userLogin);
+      const { value } = await collection.findOneAndUpdate(
+        {
+          _id: new ObjectId(countryId),
+          places: { $elemMatch: { id: placeIndex } },
+        },
+        {
+          $pull: {
+            'places.$.rating': {
+              author: userLogin,
+            },
+          },
+        }
+      );
+
+      await collection.findOneAndUpdate(
+        {
+          _id: new ObjectId(countryId),
+          places: { $elemMatch: { id: placeIndex } },
+        },
+        {
+          $addToSet: {
+            'places.$.rating': {
+              author: userLogin,
+              score: newRating,
+            },
+          },
+        }
+      );
+      return value;
+    },
   };
 };

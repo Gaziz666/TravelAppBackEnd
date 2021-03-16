@@ -77,6 +77,7 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
           userLogin: isLoginExist.data.login,
           userEmail: isLoginExist.data.email,
           userName: isLoginExist.data.name,
+          file: isLoginExist.data.file,
         },
       });
     } catch (err) {

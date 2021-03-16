@@ -33,5 +33,18 @@ export const getCountryRouter = (mongoClient: RSMongoClient) => {
     }
   });
 
+  router.put(`/rating`, async (req, res, next) => {
+    // countryId: string;
+    // placeIndex: number;
+    // newRating: number;
+    // userLogin: string;
+    try {
+      const data = await countryService.updateRating(req.body);
+      res.json({ data });
+    } catch (err) {
+      next(err);
+    }
+  });
+
   return router;
 };
