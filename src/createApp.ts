@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 import { RSMongoClient } from './db-client/mongo-client';
@@ -15,10 +14,10 @@ export const createApp = (mongoClient: RSMongoClient) => {
   app.use(morgan('dev'));
   app.use(cors());
 
-  app.use(express.json());
+  app.use(express.json({ limit: '1mb' }));
   app.use(express.text());
   app.use(express.raw());
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ limit: '1mb', extended: true }));
 
   app.use('/country', getCountryRouter(mongoClient));
   app.use('/user', getUsersRouter(mongoClient));

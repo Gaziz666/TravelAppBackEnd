@@ -44,5 +44,22 @@ export const getUsersService = (mongoClient: RSMongoClient) => {
       const data = await collection.findOne<User>({ email: email });
       return { data };
     },
+
+    async update(login: string, file: string): Promise<{ data: User }> {
+      const collection = await getCollection();
+      let img64 = file.split(',')[1];
+
+      const { value } = await collection.findOneAndUpdate(
+        { login: login },
+        {
+          $currentDate: {
+            updatedAt: true,
+          },
+          $set: { file: img64 },
+        },
+        { returnOriginal: false }
+      );
+      return value.file;
+    },
   };
 };

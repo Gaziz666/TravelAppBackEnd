@@ -39,6 +39,7 @@ const errMessage = {
     uk: 'ел-адреса вже використовується',
   },
 };
+
 export const getUsersRouter = (mongoClient: RSMongoClient) => {
   const router = express.Router();
   const usersService = getUsersService(mongoClient);
@@ -162,6 +163,15 @@ export const getUsersRouter = (mongoClient: RSMongoClient) => {
       }
     }
   );
+
+  router.put(`/updatefoto`, async (req, res, next) => {
+    try {
+      const data = await usersService.update(req.body.login, req.body.file);
+      res.json({ data });
+    } catch (err) {
+      next(err);
+    }
+  });
 
   return router;
 };
